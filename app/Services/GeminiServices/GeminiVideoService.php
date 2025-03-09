@@ -12,10 +12,11 @@ class GeminiMessageService implements GeminiInterface
 
     public function __construct() {
         $this->geminiKey = Config::get('gemini.key');
-        $this->geminiModel = Config::get('gemini.model');
     }
 
-    public function handler(array $data) {
-        // HERE
+    public function handler(array $data, string $geminiModel = '') {
+        if ($geminiModel === '') {
+            $geminiModel = Config::get('gemini.model');
+        }
     }
 }

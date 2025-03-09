@@ -8,11 +8,9 @@ use Illuminate\Support\Facades\Config;
 class GeminiImageService implements GeminiInterface
 {
     private $geminiKey;
-    private $geminiModel;
 
     public function __construct() {
         $this->geminiKey = Config::get('gemini.key');
-        $this->geminiModel = Config::get('gemini.model');
     }
 
     public function handler(array $data, string $geminiModel = '') {
