@@ -9,10 +9,10 @@ Route::get('/index', function (Request $request, GeminiManager $geminiManager) {
         'contents' => [
             'parts' => [
                 [
-                    'text' => 'Hello World'
+                    'text' => 'یک سوال ساده، تا الان داری از چه مدلی استفاده می کنی؟'
                 ]
             ]
         ]
     ];
-    dd($geminiManager->handle('message', $payload)); 
+    dd($geminiManager->handle('message', $payload, 'gemini-1.5-pro32')); 
 });
