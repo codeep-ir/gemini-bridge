@@ -29,7 +29,7 @@ class GeminiMessageService implements GeminiInterface
         $result = Http::withHeaders($headers)->post($url, $data);
 
         if ($result->failed()) {
-            return response()->json($result->json(), $result->status());
+            return response()->json(['ERROR' => 'API request failed']);
         }
 
         return $result->json();

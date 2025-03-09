@@ -20,7 +20,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(GeminiManager::class, function() {
             $manager = new GeminiManager();
             // Using dependency injection so the container will resolve these
-            $manager->registerHandler('images', $this->app->make(GeminiImageService::class));
+            $manager->registerHandler('image', $this->app->make(GeminiImageService::class));
             $manager->registerHandler('message', $this->app->make(GeminiMessageService::class));
             $manager->registerHandler('stream', $this->app->make(GeminiStreamService::class));
             $manager->registerHandler('audio', $this->app->make(GeminiAudioService::class));

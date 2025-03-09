@@ -15,10 +15,22 @@ class GeminiMessageController extends Controller
         $this->geminiManager = $geminiManager;
     }
 
-    public function send(Request $request)
+    public function sendMessage(Request $request)
     {
-        $data = $request->input('message', []);
-        $response = $this->geminiManager->handle('message', $data);
-        return response()->json($response);
+        if (!$request->has('text')) {
+            return response()->json(['error' => 'Text is required'], 400);
+        }
+
+        $payload = [
+            'contents' => [
+                'parts' => [
+                    [
+                        'text' => $request->text
+                    ]
+                ]
+            ]
+        ];
+
+        return $this->geminiManager->handle('message', $payload); 
     }
 }

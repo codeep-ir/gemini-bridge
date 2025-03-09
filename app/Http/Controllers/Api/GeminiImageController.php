@@ -2,48 +2,45 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Services\GeminiServices\GeminiManager;
 
 class GeminiImageController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    protected $geminiManager;
+
+    public function __construct(GeminiManager $geminiManager)
     {
-        //
+        $this->geminiManager = $geminiManager;
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function sendImage(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'text' => 'string|required'
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+        $payload = [
+            'contents' => [
+                [
+                    'parts' => [
+                        [
+                            'text' => $request->text,
+                        ],
+                        [
+                            'inlineData' => [
+                                'mime_type' => $request->file('image')->getMimeType(),
+                                'data' => base64_encode(file_get_contents($request->file('image')->getRealPath()))
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        ];
+        
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return $this->geminiManager->handle('image', $payload); 
     }
 }

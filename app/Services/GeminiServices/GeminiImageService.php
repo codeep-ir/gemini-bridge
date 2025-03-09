@@ -3,6 +3,7 @@
 namespace App\Services\GeminiServices;
 
 use App\Contracts\GeminiInterface;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Config;
 
 class GeminiImageService implements GeminiInterface
@@ -17,5 +18,20 @@ class GeminiImageService implements GeminiInterface
         if ($geminiModel === '') {
             $geminiModel = Config::get('gemini.model');
         }
+
+        $url = "https://generativelanguage.googleapis.com/v1beta/models/$geminiModel:generateContent?key=$this->geminiKey";
+
+        $headers = [
+            'Content-Type: application/json',
+            'Accept: application/json'
+        ];
+
+        $result = Http::withHeaders($headers)->post($url, $data);
+
+        // if ($result->failed()) {
+        //     return response()->json(['ERROR' => 'API request failed']);
+        // }
+
+        return $result->json();
     }
 }

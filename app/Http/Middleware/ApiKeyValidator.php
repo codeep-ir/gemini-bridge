@@ -15,6 +15,13 @@ class ApiKeyValidator
      */
     public function handle(Request $request, Closure $next): Response
     {
+
+        $apiKey = $request->header('AHMED-KELID');
+
+        if ($apiKey !== env('API_KEY')) {
+            return response()->json(['error' => 'Unauthorized22'], 401);
+        }
+
         return $next($request);
     }
 }
