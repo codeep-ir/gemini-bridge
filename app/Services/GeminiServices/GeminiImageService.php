@@ -13,7 +13,7 @@ class GeminiImageService implements GeminiInterface
         $this->geminiKey = Config::get('gemini.key');
     }
 
-    public function handler(array $data, string $geminiModel = '') {
+    public function handle(array $data, string $geminiModel = '') {
         if ($geminiModel === '') {
             $geminiModel = Config::get('gemini.model');
         }

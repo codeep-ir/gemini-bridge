@@ -6,5 +6,5 @@ use Illuminate\Support\Facades\Config;
 
 interface GeminiInterface
 {
-    public function handler(array $data, string $geminiModel);
+    public function handle(array $data, string $geminiModel);
 }

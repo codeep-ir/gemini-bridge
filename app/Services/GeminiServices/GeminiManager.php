@@ -23,12 +23,12 @@ class GeminiManager
      *
      * @throws \InvalidArgumentException
      */
-    public function handle(string $key, array $data)
+    public function handle(string $key, array $data, string $geminiModel = '')
     {
         if (!isset($this->handlers[$key])) {
             throw new \InvalidArgumentException("Handler not registered for key: {$key}");
         }
-        return $this->handlers[$key]->handle($data);
+        return $this->handlers[$key]->handle($data, $geminiModel);
     }
 
 }
