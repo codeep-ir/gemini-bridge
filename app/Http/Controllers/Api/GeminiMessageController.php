@@ -22,13 +22,25 @@ class GeminiMessageController extends Controller
         }
 
         $payload = [
+            'system_instruction' => [
+                'parts' => [
+                    [
+                        'text' => $request->instruction ?? null
+                    ]
+                ]
+            ],
             'contents' => [
                 'parts' => [
                     [
                         'text' => $request->text
                     ]
                 ]
+            ],
+
+            'generationConfig' => [
+                'temparature' => $request->temperature ?? 1.0
             ]
+
         ];
 
         return $this->geminiManager->handle('message', $payload); 
