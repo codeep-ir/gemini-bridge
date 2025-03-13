@@ -38,7 +38,7 @@ class GeminiMessageController extends Controller
             ],
 
             'generationConfig' => [
-                'temparature' => $request->temperature ?? 1.0
+                'temperature' => $request->temperature ?? 1.0
             ]
 
         ];
