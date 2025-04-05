@@ -28,9 +28,9 @@ class GeminiImageService implements GeminiInterface
 
         $result = Http::withHeaders($headers)->post($url, $data);
 
-        // if ($result->failed()) {
-        //     return response()->json(['ERROR' => 'API request failed']);
-        // }
+        if ($result->failed()) {
+            return $result;
+        }
 
         return $result->json();
     }
