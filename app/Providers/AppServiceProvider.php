@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Services\ChatgptService;
 use Illuminate\Support\ServiceProvider;
 use App\Services\GeminiServices\GeminiManager;
 use App\Services\GeminiServices\GeminiAudioService;
@@ -27,6 +28,8 @@ class AppServiceProvider extends ServiceProvider
             $manager->registerHandler('video', $this->app->make(GeminiVideoService::class));
             return $manager;
         });
+
+        $this->app->singleton(ChatgptService::class);
     }
 
     /**
