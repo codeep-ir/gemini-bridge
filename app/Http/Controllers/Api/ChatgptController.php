@@ -34,7 +34,7 @@ class ChatgptController extends Controller
     public function sendImage(Request $request) {
         $request->validate([
             'input' => 'required|string',
-            'image_url' => 'required|string',
+            'base64_image' => 'required|string',
             'model' => 'string',
             'instructions' => 'string'
         ]);
@@ -51,7 +51,7 @@ class ChatgptController extends Controller
                         ],
                         [
                             'type' => 'input_image',
-                            'image_url' => $request->image_url
+                            'image_url' => 'data:image/jpeg;base64,' . $request->base64_image
                         ]
                     ]
                 ]
